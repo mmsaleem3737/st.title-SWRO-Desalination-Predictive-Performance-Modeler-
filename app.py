@@ -50,7 +50,7 @@ with st.sidebar:
         - [Link to Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)
         """)
     
-    st.info("App developed by [Your Name Here]") # Feel free to change this!
+    st.info("App developed by Engr Muhammad Saleem") # Feel free to change this!
 
 # --- Main Page Content ---
 st.title("🌊 SWRO Desalination: Predictive Performance Modeler")
