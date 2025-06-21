@@ -167,17 +167,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Enhanced Description ---
+st.markdown("### 📋 How It Works")
 st.markdown("""
-<div class="custom-card">
-    <h3 style="margin-top: 0;">📋 How It Works</h3>
-    <p>Upload a CSV file with initial operational data from your SWRO system to predict its final salt rejection performance. 
-    This specialized model is optimized for systems undergoing <strong>sinusoidal stress tests</strong>.</p>
-    
-    <div style="margin-top: 1rem;">
-        <span style="color: #3b82f6;">💡</span> <strong>Tip:</strong> Ensure your data includes at least 10-15 rows for accurate predictions.
-    </div>
-</div>
-""", unsafe_allow_html=True)
+Upload a CSV file with initial operational data from your SWRO system to predict its final salt rejection performance. 
+This specialized model is optimized for systems undergoing **sinusoidal stress tests**.
+""")
+
+st.info("💡 **Tip:** Ensure your data includes at least 10-15 rows for accurate predictions.")
 
 # ====================================================================
 # 2. ENHANCED FILE UPLOAD SECTION
@@ -199,31 +195,15 @@ template_csv = create_template_df()
 
 # --- Enhanced Instructions Section ---
 with st.expander("📋 Instructions & File Format", expanded=False):
-    st.markdown("""
-    <div style="padding: 1rem 0;">
-        <h4 style="color: #3b82f6; margin-top: 0;">Step-by-Step Guide:</h4>
-        
-        <div class="processing-step">
-            <span class="step-icon">1️⃣</span>
-            Click the <strong>Download Template</strong> button to get a CSV file with the required columns.
-        </div>
-        
-        <div class="processing-step">
-            <span class="step-icon">2️⃣</span>
-            Open the template and replace the sample row with <strong>at least 10-15 rows</strong> of your own data.
-        </div>
-        
-        <div class="processing-step">
-            <span class="step-icon">3️⃣</span>
-            Save the file and upload it using the uploader below.
-        </div>
-        
-        <div class="processing-step">
-            <span class="step-icon">4️⃣</span>
-            Review your data preview and get your performance prediction!
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("#### Step-by-Step Guide:")
+    
+    st.markdown("**1️⃣** Click the **Download Template** button to get a CSV file with the required columns.")
+    
+    st.markdown("**2️⃣** Open the template and replace the sample row with **at least 10-15 rows** of your own data.")
+    
+    st.markdown("**3️⃣** Save the file and upload it using the uploader below.")
+    
+    st.markdown("**4️⃣** Review your data preview and get your performance prediction!")
 
 # --- Enhanced File Upload Section ---
 st.markdown("### 📁 Data Upload")
