@@ -50,9 +50,8 @@ Because the model was trained on an extremely small dataset (only 3 experiments)
 -   `app.py`: The core Streamlit web application for interacting with the model.
 -   `final_model.joblib`: The saved, trained `RandomForestRegressor` model.
 -   `requirements.txt`: A list of the Python packages required to run the project.
--   `generate_*.py`: A series of scripts used for generating various test data files to probe the model's behavior.
+-   `Ro_Modle_code.ipynb`: Jupyter Notebook .
 -   `data/`: Contains the original raw data files from the Mendeley dataset.
--   `01_EDA.ipynb`: Jupyter Notebook containing the initial Exploratory Data Analysis.
 
 ## Future Work
 
