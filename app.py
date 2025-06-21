@@ -190,4 +190,4 @@ with st.expander("📚 Data Source"):
     - [Link to Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)
     """)
     
-st.sidebar.info("App developed by [Your Name Here]") # Feel free to change this!
+st.sidebar.info("App developed by Engineer Muhammad Saleem") # Feel free to change this!
