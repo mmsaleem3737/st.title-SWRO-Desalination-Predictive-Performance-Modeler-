@@ -4,7 +4,7 @@ import joblib
 import os
 
 # ====================================================================
-# 1. APP CONFIGURATION & STATIC CONTENT
+# 1. APP CONFIGURATION & UI
 # ====================================================================
 
 st.set_page_config(
@@ -12,45 +12,6 @@ st.set_page_config(
     page_icon="🌊",
     layout="wide"
 )
-
-# --- Sidebar Content ---
-with st.sidebar:
-    st.title("Project Information")
-    st.write("""
-    This project demonstrates an end-to-end data science workflow to predict performance 
-    degradation in Seawater Reverse Osmosis (SWRO) systems.
-    """)
-
-    with st.expander("ℹ️ About this Project"):
-        st.write("""
-        The goal is to provide an early warning for membrane fouling by predicting the final salt rejection 
-        percentage based on initial operational data. The project followed an iterative process:
-        
-        1.  **Initial Classification:** A model with 100% accuracy was found to be too simple, only distinguishing between stable and unstable tests.
-        2.  **Generalized Regression:** A model trained on all data failed to generalize due to fundamentally different experimental conditions.
-        3.  **Specialized Regression:** The final, successful model is a **hyper-specialized `RandomForestRegressor`** trained exclusively on standard sinusoidal stress test data, making it a robust proof-of-concept for a real-world predictive tool.
-        """)
-
-    with st.expander("📈 Model Performance"):
-        st.write("""
-        The final model was evaluated using **Leave-One-Out Cross-Validation** on the three available sinusoidal experiments.
-        - **Metric:** Mean Absolute Error (MAE)
-        - **Average MAE:** `0.8322`
-        - **Std. Deviation of MAE:** `0.3866`
-        
-        This means, on average, the model's prediction for the final salt rejection percentage is off by less than 1 percentage point, demonstrating high accuracy for its specific task.
-        """)
-        
-    with st.expander("📚 Data Source"):
-        st.write("""
-        This project uses the "Performance Data of a SWRO arising from Wave Powered Desalinisation" dataset.
-        - **Authors:** Frost, C., Das, T. K.
-        - **Institution:** Queen's University Belfast
-        - **DOI:** `10.17632/hws49dsfvc.1`
-        - [Link to Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)
-        """)
-    
-    st.info("App developed by [Your Name Here]") # Feel free to change this!
 
 # --- Main Page Content ---
 st.title("🌊 SWRO Desalination: Predictive Performance Modeler")
@@ -81,7 +42,7 @@ with st.expander("Instructions & File Format", expanded=True):
     3.  Save the file and upload it below.
     """)
 
-col1, col2 = st.columns([3, 1]) # Make the uploader wider
+col1, col2 = st.columns([3, 1])
 with col1:
     uploaded_file = st.file_uploader("Upload your operational data", type=["csv"], label_visibility="collapsed")
 with col2:
@@ -92,12 +53,12 @@ with col2:
         mime="text/csv",
     )
 
-
 # ====================================================================
 # 2. MODEL AND DATA PROCESSING LOGIC
 # ====================================================================
 
 # --- Load the trained model ---
+@st.cache_resource
 def load_model():
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -105,14 +66,13 @@ def load_model():
         model = joblib.load(model_path)
         return model
     except FileNotFoundError:
-        st.error(f"Error: Model file not found at '{model_path}'. Please ensure the model has been trained and saved in the same directory as the app.")
+        st.error(f"Error: Model file not found at '{model_path}'. Please ensure the model is in the same directory as the app.")
         return None
 
 model = load_model()
 
 # --- Define the full data processing pipeline as a function ---
 def process_input_data(df):
-    st.write("---")
     st.subheader("⚙️ Processing Input Data")
     
     final_columns = [
@@ -161,7 +121,6 @@ def process_input_data(df):
 
 if uploaded_file is not None and model is not None:
     try:
-        # Read the uploaded CSV file, assuming it now has a header
         df_input = pd.read_csv(uploaded_file)
         st.subheader("📄 Uploaded Data Preview")
         st.dataframe(df_input.head())
@@ -194,5 +153,41 @@ if uploaded_file is not None and model is not None:
 
     except Exception as e:
         st.error(f"An error occurred during processing: {e}")
-elif uploaded_file is not None and model is None:
-    st.warning("Cannot proceed with prediction because the model is not loaded.")
+
+# ====================================================================
+# 4. PROJECT DOCUMENTATION (Moved to Main Page)
+# ====================================================================
+
+st.write("---")
+st.header("Project Documentation")
+
+with st.expander("ℹ️ About this Project"):
+    st.write("""
+    The goal is to provide an early warning for membrane fouling by predicting the final salt rejection 
+    percentage based on initial operational data. The project followed an iterative process:
+    
+    1.  **Initial Classification:** A model with 100% accuracy was found to be too simple, only distinguishing between stable and unstable tests.
+    2.  **Generalized Regression:** A model trained on all data failed to generalize due to fundamentally different experimental conditions.
+    3.  **Specialized Regression:** The final, successful model is a **hyper-specialized `RandomForestRegressor`** trained exclusively on standard sinusoidal stress test data, making it a robust proof-of-concept for a real-world predictive tool.
+    """)
+
+with st.expander("📈 Model Performance"):
+    st.write("""
+    The final model was evaluated using **Leave-One-Out Cross-Validation** on the three available sinusoidal experiments.
+    - **Metric:** Mean Absolute Error (MAE)
+    - **Average MAE:** `0.8322`
+    - **Std. Deviation of MAE:** `0.3866`
+    
+    This means, on average, the model's prediction for the final salt rejection percentage is off by less than 1 percentage point, demonstrating high accuracy for its specific task.
+    """)
+    
+with st.expander("📚 Data Source"):
+    st.write("""
+    This project uses the "Performance Data of a SWRO arising from Wave Powered Desalinisation" dataset.
+    - **Authors:** Frost, C., Das, T. K.
+    - **Institution:** Queen's University Belfast
+    - **DOI:** `10.17632/hws49dsfvc.1`
+    - [Link to Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)
+    """)
+    
+st.sidebar.info("App developed by [Your Name Here]") # Feel free to change this!
