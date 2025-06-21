@@ -50,7 +50,7 @@ with st.sidebar:
         - [Link to Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)
         """)
     
-    st.info("App developed by Engr Muhammad Saleem") # Feel free to change this!
+    st.info("App developed by [Your Name Here]") # Feel free to change this!
 
 # --- Main Page Content ---
 st.title("🌊 SWRO Desalination: Predictive Performance Modeler")
@@ -59,8 +59,38 @@ Upload a CSV file with the initial operational data from an SWRO system to predi
 The model is specialized for systems undergoing **sinusoidal stress tests**.
 """)
 
-# --- File Uploader ---
-uploaded_file = st.file_uploader("Upload your operational data (headerless CSV format)", type=["csv"])
+# --- Create a sample template for download ---
+@st.cache_data
+def create_template_df():
+    template_data = {
+        'feed_flow_l_min': [8.0], 'brine_flow_l_min': [7.31], 'feed_pressure_bar': [53.25],
+        'brine_pressure_bar': [52.7], 'permeate_flow_l_min': [1.01], 'permeate_salinity_ppm': [123.01],
+        'brine_salinity_ppm': [40833], 'temp_c': [25.4], 'recovery_percent': [12.625], 
+        'salt_rejection_percent': [99.6264]
+    }
+    df = pd.DataFrame(template_data)
+    return df.to_csv(index=False).encode('utf-8')
+
+template_csv = create_template_df()
+
+# --- Display Instructions and Uploader ---
+with st.expander("Instructions & File Format", expanded=True):
+    st.write("""
+    1.  Click the **Download Template** button to get a CSV file with the required columns.
+    2.  Open the template and replace the sample row with at least 10-15 rows of your own data.
+    3.  Save the file and upload it below.
+    """)
+
+col1, col2 = st.columns([3, 1]) # Make the uploader wider
+with col1:
+    uploaded_file = st.file_uploader("Upload your operational data", type=["csv"], label_visibility="collapsed")
+with col2:
+    st.download_button(
+        label="Download Template",
+        data=template_csv,
+        file_name="swro_template.csv",
+        mime="text/csv",
+    )
 
 
 # ====================================================================
@@ -131,7 +161,8 @@ def process_input_data(df):
 
 if uploaded_file is not None and model is not None:
     try:
-        df_input = pd.read_csv(uploaded_file, header=None) # Assume headerless CSV
+        # Read the uploaded CSV file, assuming it now has a header
+        df_input = pd.read_csv(uploaded_file)
         st.subheader("📄 Uploaded Data Preview")
         st.dataframe(df_input.head())
 
