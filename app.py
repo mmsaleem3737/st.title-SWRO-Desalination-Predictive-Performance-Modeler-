@@ -161,16 +161,28 @@ if uploaded_file is not None and model is not None:
 st.write("---")
 st.header("Project Documentation")
 
-with st.expander("ℹ️ About this Project"):
+with st.expander("ℹ️ About this Project", expanded=True):
     st.write("""
-    The goal is to provide an early warning for membrane fouling by predicting the final salt rejection 
-    percentage based on initial operational data. The project followed an iterative process:
+    The goal of this project was to explore the feasibility of predicting SWRO membrane performance degradation using machine learning. The project followed a rigorous, iterative process:
     
     1.  **Initial Classification:** A model with 100% accuracy was found to be too simple, only distinguishing between stable and unstable tests.
     2.  **Generalized Regression:** A model trained on all data failed to generalize due to fundamentally different experimental conditions.
-    3.  **Specialized Regression:** The final, successful model is a **hyper-specialized `RandomForestRegressor`** trained exclusively on standard sinusoidal stress test data, making it a robust proof-of-concept for a real-world predictive tool.
+    3.  **Specialized Regression:** A hyper-specialized `RandomForestRegressor` was trained exclusively on the 3 available sinusoidal stress test experiments.
     """)
 
+with st.expander("📈 The Final Model's Key Insight (The Most Important Result)"):
+    st.warning("**Finding: The model is a 'Brittle Expert' and consistently predicts 'Alert' status.**")
+    st.write("""
+    Through rigorous testing with various synthetic data files, we discovered that the model almost always predicts a poor outcome. This is not a bug; it is the most important finding of the project.
+
+    **Why does this happen?**
+    Because the model was trained on an extremely small dataset (only 3 experiments), it has effectively "memorized" the exact numerical patterns of those tests. It has not learned to generalize.
+    
+    When it encounters new data that deviates even slightly from the patterns it has memorized, it correctly identifies the data as an unfamiliar anomaly and predicts a low-performance outcome. It lacks the rich data needed to make nuanced predictions.
+    
+    **Conclusion:** This project successfully demonstrates the primary challenge in real-world industrial AI—**data scarcity**. We have proven that the data processing and modeling methodology is sound, but that a robust, deployable model requires a much larger and more varied training dataset. This finding is more valuable than a simple "correct" prediction on a toy problem.
+    """)
+    
 with st.expander("📈 Model Performance"):
     st.write("""
     The final model was evaluated using **Leave-One-Out Cross-Validation** on the three available sinusoidal experiments.
@@ -190,4 +202,4 @@ with st.expander("📚 Data Source"):
     - [Link to Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)
     """)
     
-st.sidebar.info("App developed by Engineer Muhammad Saleem") # Feel free to change this!
+st.sidebar.info("App developed by [Your Name Here]") # Feel free to change this!
