@@ -399,42 +399,28 @@ st.markdown("## 📚 Project Documentation")
 
 with st.expander("ℹ️ About this Project"):
     st.markdown("""
-    <div style="line-height: 1.6;">
-        <p>This project explores the feasibility of predicting SWRO membrane performance degradation using machine learning. 
-        The development followed a rigorous, iterative process:</p>
-        
-        <div class="processing-step">
-            <span class="step-icon">🔬</span>
-            <strong>Initial Classification:</strong> A model with 100% accuracy was found to be too simple, only distinguishing between stable and unstable tests.
-        </div>
-        
-        <div class="processing-step">
-            <span class="step-icon">📊</span>
-            <strong>Generalized Regression:</strong> A model trained on all data failed to generalize due to fundamentally different experimental conditions.
-        </div>
-        
-        <div class="processing-step">
-            <span class="step-icon">🎯</span>
-            <strong>Specialized Regression:</strong> A hyper-specialized RandomForestRegressor was trained exclusively on 3 available sinusoidal stress test experiments.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    This project explores the feasibility of predicting SWRO membrane performance degradation using machine learning. 
+    The development followed a rigorous, iterative process:
+    """)
+    
+    st.markdown("**🔬 Initial Classification:** A model with 100% accuracy was found to be too simple, only distinguishing between stable and unstable tests.")
+    
+    st.markdown("**📊 Generalized Regression:** A model trained on all data failed to generalize due to fundamentally different experimental conditions.")
+    
+    st.markdown("**🎯 Specialized Regression:** A hyper-specialized RandomForestRegressor was trained exclusively on 3 available sinusoidal stress test experiments.")
 
 with st.expander("🔍 Key Research Findings"):
-    st.markdown("""
-    <div class="status-warning">
-        <h4 style="margin-top: 0;">🎯 Critical Discovery: The "Brittle Expert" Model</h4>
-        <p>The model consistently predicts 'Alert' status for most inputs. This is not a limitation—it's the project's most valuable finding.</p>
-    </div>
+    st.warning("🎯 **Critical Discovery: The 'Brittle Expert' Model**\n\nThe model consistently predicts 'Alert' status for most inputs. This is not a limitation—it's the project's most valuable finding.")
     
-    <div style="margin-top: 1.5rem;">
-        <h5>Why does this happen?</h5>
-        <p>The model was trained on an extremely small dataset (only 3 experiments), causing it to "memorize" exact numerical patterns rather than learn to generalize. When encountering new data that deviates from these memorized patterns, it correctly identifies anomalies and predicts poor performance.</p>
-        
-        <h5 style="margin-top: 1rem;">Research Conclusion</h5>
-        <p>This project successfully demonstrates the primary challenge in real-world industrial AI: <strong>data scarcity</strong>. We've proven that our methodology is sound, but a robust, deployable model requires a much larger and more varied training dataset.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("#### Why does this happen?")
+    st.markdown("""
+    The model was trained on an extremely small dataset (only 3 experiments), causing it to "memorize" exact numerical patterns rather than learn to generalize. When encountering new data that deviates from these memorized patterns, it correctly identifies anomalies and predicts poor performance.
+    """)
+    
+    st.markdown("#### Research Conclusion")
+    st.markdown("""
+    This project successfully demonstrates the primary challenge in real-world industrial AI: **data scarcity**. We've proven that our methodology is sound, but a robust, deployable model requires a much larger and more varied training dataset.
+    """)
     
 with st.expander("📊 Model Performance Metrics"):
     col1, col2 = st.columns(2)
@@ -450,24 +436,17 @@ with st.expander("📊 Model Performance Metrics"):
     st.info("💡 The model's prediction for final salt rejection percentage is typically within 1 percentage point of actual values.")
     
 with st.expander("📖 Data Source & Citation"):
-    st.markdown("""
-    <div style="background: rgba(99, 102, 241, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #6366f1;">
-        <h5 style="margin-top: 0;">Dataset Information</h5>
-        <p><strong>Title:</strong> Performance Data of a SWRO arising from Wave Powered Desalinisation</p>
-        <p><strong>Authors:</strong> Frost, C., Das, T. K.</p>
-        <p><strong>Institution:</strong> Queen's University Belfast</p>
-        <p><strong>DOI:</strong> 10.17632/hws49dsfvc.1</p>
-        <p><a href="https://data.mendeley.com/datasets/hws49dsfvc/1" target="_blank">🔗 Access Dataset</a></p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("#### Dataset Information")
+    
+    st.markdown("**Title:** Performance Data of a SWRO arising from Wave Powered Desalinisation")
+    st.markdown("**Authors:** Frost, C., Das, T. K.")
+    st.markdown("**Institution:** Queen's University Belfast")
+    st.markdown("**DOI:** 10.17632/hws49dsfvc.1")
+    st.markdown("**Link:** [🔗 Access Dataset](https://data.mendeley.com/datasets/hws49dsfvc/1)")
 
 # --- Enhanced Sidebar ---
-st.sidebar.markdown("""
-<div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1)); border-radius: 10px; margin-bottom: 1rem;">
-    <h3 style="margin: 0;">🌊 SWRO Predictor</h3>
-    <p style="margin: 0.5rem 0 0 0; opacity: 0.8;">Advanced ML Model</p>
-</div>
-""", unsafe_allow_html=True)
+st.sidebar.markdown("### 🌊 SWRO Predictor")
+st.sidebar.markdown("*Advanced ML Model*")
 
 st.sidebar.markdown("### 📋 Quick Guide")
 st.sidebar.markdown("""
